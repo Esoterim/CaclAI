@@ -1,0 +1,9 @@
+# _config.yml
+title: CalcAI
+baseurl: ""  # Leave empty unless using a project page (e.g., /repo-name)
+url: "https://esoterim.github.io"  # Your GitHub Pages URL
+permalink: pretty  # Removes .html from URLs
+
+# Plugins (optional)
+plugins:
+  - jekyll-feed
