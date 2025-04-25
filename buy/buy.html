@@ -3,14 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Checkout Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 40vw;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            padding: 12px 24px;
+            background: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .home-button:hover {
+            background: #357abd;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        stripe-buy-button {
+            margin: 20px 0;
+            transform: scale(1.2);
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                width: 60vw;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 80vw;
+                padding: 2rem;
+            }
+            
+            stripe-buy-button {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90vw;
+                padding: 1.5rem;
+            }
+            
+            .home-button {
+                top: 15px;
+                left: 15px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore quo magnam modi atque repellat eveniet soluta ut nihil quaerat tempora, cumque dignissimos esse? Delectus eius placeat blanditiis nihil debitis consectetur! </h1>
-    <a href="../index.html">
-        <button>
-            Home
-        </button>
-    </a>
+    <div class="container">
+        <a href="../index.html" class="home-button">
+            <button>HOME</button>
+        </a>
+        
+        <script async
+            src="https://js.stripe.com/v3/buy-button.js">
+        </script>
+
+        <stripe-buy-button
+            buy-button-id="buy_btn_1RHZVhAhYolfbqwSUPzbLaIO"
+            publishable-key="pk_test_51RGmeJAhYolfbqwS42ODcSAFCVxm5MeaSbqFSRca3yxmXRtJpefrhFIblIsffG0HYI5Yk4sWfMiK3kYDPpM687Tv00sukJWQuQ">
+        </stripe-buy-button>
+    </div>
 </body>
 </html>
