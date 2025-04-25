@@ -77,7 +77,7 @@
                         <li>/** Feature list item **/</li>
                         <li>/** Feature list item **/</li>
                     </ul>
-                    <a href="buy" class="cta-button">Choose Plan</a>
+                    <a href="/buy/buy.md" class="cta-button">Choose Plan</a>
                 </div>
                 <div class="price-card popular">
                     <span class="popular-badge">Most Popular</span>
@@ -88,7 +88,7 @@
                         <li>/** Feature list item **/</li>
                         <li>/** Feature list item **/</li>
                     </ul>
-                    <a href="buy" class="cta-button">Choose Plan</a>
+                    <a href="/buy/buy.md" class="cta-button">Choose Plan</a>
                 </div>
             </div>
         </div>
