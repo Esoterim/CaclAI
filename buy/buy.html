@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout Page</title>
+    <title>Product Carousel</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -14,6 +14,7 @@
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            overflow: hidden;
         }
 
         .container {
@@ -29,6 +30,70 @@
             justify-content: center;
             position: relative;
             animation: fadeIn 0.5s ease-in;
+            overflow: hidden;
+        }
+
+        .product-slider {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-item {
+            position: absolute;
+            width: 100%;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        .product-item.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .product-item.prev {
+            opacity: 0.3;
+            transform: translateX(-100%);
+        }
+
+        .product-item.next {
+            opacity: 0.3;
+            transform: translateX(100%);
+        }
+
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 100;
+        }
+
+        .nav-arrow:hover {
+            background: #357abd;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .arrow-left {
+            left: 20px;
+        }
+
+        .arrow-right {
+            right: 20px;
         }
 
         .home-button {
@@ -44,35 +109,49 @@
             border: none;
             cursor: pointer;
             font-size: 1.1rem;
+            z-index: 100;
         }
 
-        .home-button:hover {
-            background: #357abd;
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        .coming-soon {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background: #95a5a6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: not-allowed;
+            opacity: 0.7;
+            z-index: 100;
         }
 
-        stripe-buy-button {
-            margin: 20px 0;
-            transform: scale(1.2);
-            transition: transform 0.3s ease;
+        /* Edge fade effect */
+        .container::before,
+        .container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50px;
+            z-index: 99;
+            pointer-events: none;
+        }
+
+        .container::before {
+            left: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+        }
+
+        .container::after {
+            right: 0;
+            background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 1200px) {
-            .container {
-                width: 60vw;
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 768px) {
@@ -81,39 +160,83 @@
                 padding: 2rem;
             }
             
-            stripe-buy-button {
-                transform: scale(1);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                width: 90vw;
-                padding: 1.5rem;
-            }
-            
-            .home-button {
-                top: 15px;
-                left: 15px;
-                padding: 10px 20px;
+            .nav-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
+    <button class="nav-arrow arrow-left" onclick="cycleProduct(-1)">←</button>
     <div class="container">
-        <a href="../index.html" class="home-button">
-            <button>HOME</button>
-        </a>
+        <a href="../index.html" class="home-button">Home</a>
         
-        <script async
-            src="https://js.stripe.com/v3/buy-button.js">
-        </script>
+        <div class="product-slider">
+            <!-- Product items will be dynamically added here -->
+        </div>
 
-        <stripe-buy-button
-            buy-button-id="buy_btn_1RHZVhAhYolfbqwSUPzbLaIO"
-            publishable-key="pk_test_51RGmeJAhYolfbqwS42ODcSAFCVxm5MeaSbqFSRca3yxmXRtJpefrhFIblIsffG0HYI5Yk4sWfMiK3kYDPpM687Tv00sukJWQuQ">
-        </stripe-buy-button>
     </div>
+    <button class="nav-arrow arrow-right" onclick="cycleProduct(1)">→</button>
+
+    <script>
+        const products = [
+            { id: 'buy_btn_1RHZVhAhYolfbqwSUPzbLaIO' },
+            { id: 'another_product_id_here' },
+            { id: 'third_product_id_here' }
+        ];
+
+        let currentIndex = 0;
+
+        function createProductElement(productId) {
+            const div = document.createElement('div');
+            div.className = 'product-item';
+            div.innerHTML = `
+                <stripe-buy-button
+                    buy-button-id="${productId}"
+                    publishable-key="pk_test_51RGmeJAhYolfbqwS42ODcSAFCVxm5MeaSbqFSRca3yxmXRtJpefrhFIblIsffG0HYI5Yk4sWfMiK3kYDPpM687Tv00sukJWQuQ">
+                </stripe-buy-button>
+            `;
+            return div;
+        }
+
+        function loadStripeScript() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://js.stripe.com/v3/buy-button.js';
+            document.head.appendChild(script);
+        }
+
+        function updateSlider() {
+            const slider = document.querySelector('.product-slider');
+            const currentProduct = slider.querySelector('.active');
+            
+            if (currentProduct) {
+                currentProduct.classList.remove('active');
+                currentProduct.classList.add('prev');
+                setTimeout(() => currentProduct.remove(), 600);
+            }
+
+            const newProduct = createProductElement(products[currentIndex].id);
+            newProduct.classList.add('active');
+            slider.appendChild(newProduct);
+            
+            loadStripeScript();
+        }
+
+        function cycleProduct(direction) {
+            currentIndex += direction;
+            
+            if (currentIndex >= products.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = products.length - 1;
+            
+            updateSlider();
+        }
+
+
+        // Initialize first product
+        updateSlider();
+    </script>
 </body>
 </html>
