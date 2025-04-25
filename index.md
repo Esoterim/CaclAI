@@ -88,7 +88,7 @@
                         <li>/** Feature list item **/</li>
                         <li>/** Feature list item **/</li>
                     </ul>
-                    <a href="buy/buy.html" class="cta-button">Choose Plan</a>
+                    <a href="buy/buy" class="cta-button">Choose Plan</a>
                 </div>
             </div>
         </div>

@@ -171,7 +171,7 @@
 <body>
     <button class="nav-arrow arrow-left" onclick="cycleProduct(-1)">←</button>
     <div class="container">
-        <a href="../index.html" class="home-button">Home</a>
+        <a href="../index" class="home-button">Home</a>
         
         <div class="product-slider">
             <!-- Product items will be dynamically added here -->
