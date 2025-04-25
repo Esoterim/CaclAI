@@ -1,0 +1,133 @@
+/* Base Styles */
+:root {
+    --primary-color: #2A5C82;
+    --secondary-color: #1ABC9C;
+    --text-color: #333;
+    --light-bg: #f9f9f9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+#header {
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(42,92,130,0.8), rgba(26,188,156,0.8)),
+                url('CalculatorBG.png') center/cover;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Features Section */
+.features {
+    padding: 5rem 0;
+    background: var(--light-bg);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+/* Pricing Section */
+.pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.price-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+/* Footer Styles */
+.footer {
+    background: var(--primary-color);
+    color: white;
+    padding: 4rem 0;
+}
+
+/* Utility Classes */
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--secondary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+/** Add media queries for responsive design **/
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+}
