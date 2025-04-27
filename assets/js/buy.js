@@ -11,8 +11,9 @@ function createProductElement(productId) {
     div.className = 'product-item';
     div.innerHTML = `
         <stripe-buy-button
-            buy-button-id="${productId}"
-            publishable-key="pk_test_51RGmeJAhYolfbqwS42ODcSAFCVxm5MeaSbqFSRca3yxmXRtJpefrhFIblIsffG0HYI5Yk4sWfMiK3kYDPpM687Tv00sukJWQuQ">
+        buy-button-id="buy_btn_1RIYT3AhYolfbqwS8OlulOIY"
+        publishable-key="pk_live_51RGmeJAhYolfbqwSlj09SZQBqvAo9pkP6n4evQOsfwDSy1TYnGE2K5rPIH6M4XIlsubr1IbK4UD1qLa9VGzwcN0m00qgDUh6oM"
+        >
         </stripe-buy-button>
     `;
     return div;
